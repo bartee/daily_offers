@@ -29,6 +29,10 @@ def collect():
 
     :return:
     """
+    datadir = 'data'
+    if 'OUTPUT_DATA_DIR' in os.environ:
+        datadir = os.environ['OUTPUT_DATA_DIR']
+
     scraper_dir = os.path.join(os.getcwd(), 'scrapers')
     scrapers = get_scraper_list(scraper_dir)
     now = datetime.now()
@@ -44,9 +48,12 @@ def collect():
 
         total_deals += deals
 
-    datadir = os.path.join(os.getcwd(), 'data')
     filename = '{0}_resultset.json'.format(now.strftime('%Y%m%d_%H%I%S'))
 
     fh = open(os.path.join(datadir, filename), 'w+')
     fh.write(json.dumps(total_deals))
     fh.close()
+
+if __name__ == "__main__":
+    collect()
+
