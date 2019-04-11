@@ -1,8 +1,7 @@
 import os
 import importlib
-from sheets_data_client import DataClient
 from datetime import datetime
-from pprint import pprint as pp
+import json
 
 # Find all scrapers in scrapers-dir
 # Scraper has to have:
@@ -25,29 +24,10 @@ for name in scrapers:
 
     total_deals += deals
 
-# WORKS!
+# @TODO store the results somewhere.
+datadir = os.path.join(os.getcwd(), 'data')
+filename = '{0}_resultset.json'.format(now.strftime('%Y%m%d_%H%I%S'))
 
-# Next up: Google Sheets connection
-# - (/) Connect to Sheet.
-# - (/) Find the "Filter" sheet, collect the keywords from the A-column
-# - (/) Filter the total_deals on given keywords, and store in filtered_deals dictionary. filtered_deals['filter term'] = [deals matching the filter on title]
-# - (/) Append the current datetime to each filtered list item
-# - Store the filtered items in a separate sheet.
-"""
-filtered_deals = {}
-client = DataClient()
-
-filterlist = client.get_filter_values()
-
-
-counter = 0
-for filter_term in filterlist:
-    filtered = [deal for deal in total_deals if filter_term.lower() in deal['title'].lower()]
-    map(lambda item: item.update({'timestamp': now.strftime('%Y-%m-%d')}), filtered)
-
-    filtered_deals.update({filter_term: filtered})
-    pp(total_deals)
-    counter += len(filtered)
-
-pp(filtered_deals)
-"""
+fh = open(os.path.join(datadir, filename), 'w+')
+fh.write(json.dumps(total_deals))
+fh.close()

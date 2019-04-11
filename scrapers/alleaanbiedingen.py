@@ -6,7 +6,7 @@ def get_deals():
 	deals = []
 
 	url = 'https://alleaanbiedingen.info'
-	# Paginated.
+	# Paginated. To be fixed.
 	response = get(url)
 
 	htmlsoup = bs4.BeautifulSoup(response.text, 'html.parser')
@@ -14,7 +14,6 @@ def get_deals():
 
 	paginated_pages = htmlsoup.find_all('li', class_="page-item")
 	max_pages = int(paginated_pages[len(paginated_pages)-2].a.text)
-
 
 	for deal_container in deal_containers:
 	    title = deal_container.find('h6', class_='deal-title').text
