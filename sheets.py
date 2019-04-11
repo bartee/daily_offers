@@ -1,7 +1,8 @@
 
-from sheets_data_client import DataClient
-from pprint import pprint as pp
 from datetime import datetime
+from pprint import pprint as pp
+
+from sheets_data_client import DataClient
 
 # Next up: Google Sheets connection, or a simple vue-frontend?
 # - (/) Connect to Sheet.

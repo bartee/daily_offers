@@ -2,9 +2,11 @@
 Shows basic usage of the Sheets API. Prints values from a Google Spreadsheet.
 """
 from __future__ import print_function
+
 from apiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file, client, tools
+from oauth2client import client, file, tools
+
 
 class DataClient:
 
@@ -20,17 +22,17 @@ class DataClient:
 
         # Call the Sheets API
         self.SPREADSHEET_ID = '1n38sIq_3rCaGiGTQhlL2M9igDEDBoagAhJHkVWCkrT8'
-    
+
     def get_filter_values(self):
         """
         Retrieve the filter values
         """
         if not self.service:
             return False
-        
-        FILTER_RANGE='Filters!A:A'
+
+        FILTER_RANGE = 'Filters!A:A'
         result = self.service.spreadsheets().values().get(spreadsheetId=self.SPREADSHEET_ID,
-                                                    range=FILTER_RANGE).execute()
+                                                          range=FILTER_RANGE).execute()
         filter_values = result.get('values', [])
         if not filter_values:
             print('No data found.')
@@ -49,14 +51,15 @@ class DataClient:
         :param append:
         :return:
         """
-        storage_range = sheet
+        # storage_range = sheet
         result = self.service.spreadsheets().values().append(spreadsheetId=self.SPREADSHEET_ID,
-                                                                 valueInputOption=data)
+                                                             valueInputOption=data)
+        if result:
+            return True
+        return False
 
     def get_sheet_names(self):
         sheet_metadata = self.service.spreadsheets().get(spreadsheetId=self.SPREADSHEET_ID).execute()
         sheet_names = [item['properties']['title'] for item in sheet_metadata['sheets']]
 
         return sheet_names
-
-

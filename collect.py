@@ -1,7 +1,7 @@
-import os
 import importlib
-from datetime import datetime
 import json
+import os
+from datetime import datetime
 
 # Find all scrapers in scrapers-dir
 # Scraper has to have:
@@ -12,7 +12,7 @@ scrapers = [name for name in os.listdir('scrapers') if name.endswith('.py')]
 now = datetime.now()
 total_deals = []
 for name in scrapers:
-    scr = name.replace('.py','')
+    scr = name.replace('.py', '')
     unit = importlib.import_module('scrapers.{0}'.format(scr))
     deals = unit.get_deals()
 
