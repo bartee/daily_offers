@@ -1,3 +1,6 @@
+[![Build Status](https://api.travis-ci.org/bartee/daily_offers.svg?branch=master)](https://travis-ci.org/bartee/daily_offers)
+[![Coverage Status](https://coveralls.io/repos/github/bartee/daily_offers/badge.svg?branch=master)](https://coveralls.io/github/bartee/daily_offers?branch=master)
+
 Aim 1:
 - scrape a shitload of sites
 - store the offer in a standardized form:
